@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pymupdf
+python-docx
+sentence-transformers
+scikit-learn
+numpy
+rank-bm25
+faiss-cpu
+joblib
+pandas
+numpy
+scikit-learn
+sentence-transformers
