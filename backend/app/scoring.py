@@ -73,7 +73,7 @@ def score_pairs(pairs):
         )
 
         features.append([char_score, semantic_score, length_ratio])
-        raw_scores.append((char_score, semantic_score))
+        raw_scores.append((char_score, semantic_score, length_ratio))
 
     probabilities = classifier.predict_proba(
         np.asarray(features)
@@ -81,10 +81,11 @@ def score_pairs(pairs):
 
     results = []
 
-    for i, (char_score, semantic_score) in enumerate(raw_scores):
+    for i, (char_score, semantic_score, length_ratio) in enumerate(raw_scores):
         results.append({
             "fingerprint_similarity": round(char_score, 4),
             "semantic_similarity": round(semantic_score, 4),
+            "length_ratio": round(length_ratio, 4),
             "fusion_score": round(float(probabilities[i]), 4),
         })
 

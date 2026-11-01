@@ -32,3 +32,7 @@ backend/data/raw/
 # Temporary files
 *.log
 *.tmp
+
+# Generated search indexes and databases
+backend/data/semantic_index/
+backend/data/source_search.db

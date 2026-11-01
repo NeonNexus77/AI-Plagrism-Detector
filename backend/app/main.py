@@ -7,9 +7,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from app.detector import compare_texts
 from app.extractor import extract_text
-from app.retriever import retrieve_sources
 from app.scoring import score_pair
 from app.analyzer import analyze_text
 
@@ -92,27 +90,7 @@ async def analyze_document(file: UploadFile = File(...)):
             temp_path = temp.name
 
         submitted_text = extract_text(temp_path)
-
-        candidates = retrieve_sources(submitted_text, top_k=5)
-        matches = []
-
-        for candidate in candidates:
-            result = score_pair(
-                submitted_text,
-                candidate["source_text"],
-            )
-
-            matches.append({
-                "source_document": candidate["source_document"],
-                "bm25_score": candidate["bm25_score"],
-                **result,
-            })
-
-        matches.sort(
-            key=lambda item: item["fusion_score"],
-            reverse=True,
-        )
-
+        
         result = analyze_text(submitted_text, top_k=5)
 
         return {
